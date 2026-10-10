@@ -1,0 +1,706 @@
+/* ========================================
+HEADER
+======================================== */
+.header {
+    width: min(1240px, calc(100% - 48px));
+    margin: 0 auto;
+    padding: 24px 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+
+}
+
+.brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+
+    font-size: 21px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+
+    color: #0f172a;
+}
+
+
+.brand-mark {
+    width: 38px;
+    height: 38px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background-color: #0f172a;
+    color: white;
+
+    font-size: 17px;
+    font-weight: 800;
+}
+
+
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 34px;
+
+    color: #64748b;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.nav a {
+    transition: color 0.2s ease;
+}
+
+.nav a:hover {
+    color: #0f172a;
+}
+
+
+/* ========================================
+CARRITO
+======================================== */
+
+.cart-button {
+    border: 1px solid #e2e8f0;
+
+    padding: 10px 12px 10px 18px;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    border-radius: 999px;
+
+    background-color: white;
+    color: #0f172a;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 25px
+        rgba(15, 23, 42, 0.06);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.cart-button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 30px
+        rgba(15, 23, 42, 0.10);
+}
+
+.cart-button span {
+    min-width: 30px;
+    height: 30px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background-color: #0f172a;
+    color: white;
+}
+
+
+/* ========================================
+HERO
+======================================== */
+
+.hero {
+    width: min(1240px, calc(100% - 48px));
+
+    min-height: 650px;
+
+    margin: 24px auto 110px;
+
+    padding: 80px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+
+    border-radius: 36px;
+
+    background-image:
+        url("/hero/hero-tech.jpg");
+
+    background-size: cover;
+    background-position: center;
+
+    color: white;
+
+    box-shadow:
+        0 40px 100px
+        rgba(15, 23, 42, 0.18);
+}
+
+/* ========================================
+CAPA OSCURA SOBRE LA IMAGEN
+======================================== */
+
+.hero-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(2, 6, 23, 0.96) 0%,
+            rgba(2, 6, 23, 0.88) 38%,
+            rgba(2, 6, 23, 0.52) 67%,
+            rgba(2, 6, 23, 0.18) 100%
+        );
+}
+
+
+/* ========================================
+   CONTENIDO HERO
+======================================== */
+
+.hero-content {
+    position: relative;
+
+    z-index: 2;
+
+    max-width: 650px;
+}
+
+
+.eyebrow {
+    display: inline-block;
+
+    margin-bottom: 24px;
+
+    color: #cbd5e1;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: 2.6px;
+}
+
+
+.hero h1 {
+    max-width: 620px;
+
+    margin: 0 0 28px;
+
+    font-size:
+        clamp(
+            52px,
+            6vw,
+            82px
+        );
+
+    line-height: 0.96;
+
+    letter-spacing: -4px;
+}
+
+
+.hero-content > p {
+    max-width: 560px;
+
+    margin-bottom: 34px;
+
+    color: #e2e8f0;
+
+    font-size: 18px;
+
+    line-height: 1.75;
+}
+
+
+/* ========================================
+BOTONES HERO
+======================================== */
+
+.hero-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    gap: 14px;
+
+    margin-bottom: 40px;
+}
+
+
+.primary-button,
+.secondary-button {
+    padding: 15px 24px;
+
+    border-radius: 999px;
+
+    font-size: 14px;
+    font-weight: 800;
+
+    transition:
+        transform 0.2s ease,
+        background-color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+
+.primary-button {
+    background-color: white;
+
+    color: #0f172a;
+}
+
+
+.primary-button:hover {
+    transform: translateY(-2px);
+
+    background-color: #f1f5f9;
+}
+
+
+.secondary-button {
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.30);
+
+    background-color:
+        rgba(255, 255, 255, 0.06);
+
+    color: white;
+
+    backdrop-filter: blur(8px);
+}
+
+
+.secondary-button:hover {
+    transform: translateY(-2px);
+
+    background-color:
+        rgba(255, 255, 255, 0.13);
+
+    border-color:
+        rgba(255, 255, 255, 0.45);
+}
+
+
+/* ========================================
+   CARACTERÍSTICAS HERO
+======================================== */
+
+.hero-features {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 22px;
+
+    color: #cbd5e1;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+/* ========================================
+   SECCIÓN DE PRODUCTOS
+======================================== */
+
+.products-section {
+    width: min(1240px, calc(100% - 48px));
+
+    margin: 0 auto;
+
+    padding-bottom: 120px;
+}
+
+
+.section-heading {
+    margin-bottom: 44px;
+}
+
+
+.section-eyebrow {
+    display: block;
+
+    margin-bottom: 16px;
+
+    color: #6366f1;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: 2.5px;
+}
+
+
+.section-title-row {
+    display: grid;
+
+    grid-template-columns:
+        1.2fr 0.8fr;
+
+    align-items: end;
+
+    gap: 50px;
+}
+
+
+.section-title-row h2 {
+    max-width: 700px;
+
+    margin: 0;
+
+    font-size:
+        clamp(
+            38px,
+            5vw,
+            60px
+        );
+
+    line-height: 1;
+
+    letter-spacing: -2.5px;
+}
+
+
+.section-title-row p {
+    margin: 0;
+
+    color: #64748b;
+
+    line-height: 1.75;
+}
+
+
+
+/* ========================================
+   GRID DE PRODUCTOS
+======================================== */
+
+.products-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 24px;
+}
+
+
+/* ========================================
+PRODUCT CARD
+======================================== */
+
+.product-card {
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+    border-radius: 28px;
+    background-color: white;
+    box-shadow:
+        0 10px 35px
+        rgba(15, 23, 42, 0.04);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow:
+        0 30px 70px
+        rgba(15, 23, 42, 0.12);
+}
+
+
+/* ========================================
+   IMAGEN DEL PRODUCTO
+======================================== */
+
+.product-image-container {
+    height: 320px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background-color: #e2e8f0;
+}
+
+
+.product-image {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition: transform 0.6s ease;
+}
+
+
+.product-card:hover .product-image {
+    transform: scale(1.06);
+}
+
+
+.product-badge {
+    position: absolute;
+
+    top: 18px;
+    left: 18px;
+
+    padding: 8px 12px;
+
+    border-radius: 999px;
+
+    background:
+        rgba(255, 255, 255, 0.90);
+
+    color: #0f172a;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+    backdrop-filter: blur(10px);
+}
+
+
+/* ========================================
+   INFORMACIÓN DEL PRODUCTO
+======================================== */
+
+.product-info {
+    padding: 26px;
+}
+
+
+.product-meta {
+    margin-bottom: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+}
+
+
+.product-category {
+    color: #64748b;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1.5px;
+}
+
+
+.product-rating {
+    color: #f59e0b;
+
+    font-size: 12px;
+    font-weight: 800;
+}
+
+
+.product-info h3 {
+    margin: 0 0 13px;
+
+    font-size: 23px;
+
+    letter-spacing: -0.5px;
+}
+
+
+.product-info > p {
+    min-height: 78px;
+
+    margin-bottom: 25px;
+
+    color: #64748b;
+
+    font-size: 14px;
+
+    line-height: 1.7;
+}
+
+
+.product-footer {
+    padding-top: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    border-top: 1px solid #f1f5f9;
+}
+
+
+.product-footer strong {
+    font-size: 22px;
+
+    letter-spacing: -0.5px;
+}
+
+
+.product-button {
+    border: 0;
+
+    padding: 11px 15px;
+
+    border-radius: 12px;
+
+    background-color: #f1f5f9;
+
+    color: #0f172a;
+
+    font-size: 12px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.product-button:hover {
+    transform: translateY(-2px);
+
+    background-color: #0f172a;
+
+    color: white;
+}
+
+
+/* ========================================
+   FOOTER
+======================================== */
+
+.footer {
+    padding:
+        80px
+        max(
+            24px,
+            calc((100% - 1240px) / 2)
+        );
+
+    background-color: #020617;
+
+    color: white;
+}
+
+
+.footer-inner {
+    display: grid;
+
+    grid-template-columns:
+        2fr 1fr 1fr;
+
+    gap: 60px;
+
+    padding-bottom: 60px;
+}
+
+
+.footer-logo {
+    color: white;
+}
+
+
+.footer-logo .brand-mark {
+    background-color: white;
+
+    color: #0f172a;
+}
+
+
+.footer-brand p {
+    max-width: 390px;
+
+    margin-top: 22px;
+
+    color: #94a3b8;
+
+    line-height: 1.7;
+}
+
+
+.footer-column {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 13px;
+
+    color: #94a3b8;
+
+    font-size: 13px;
+}
+
+
+.footer-column strong {
+    margin-bottom: 6px;
+
+    color: white;
+
+    font-size: 12px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1.5px;
+}
+
+
+.footer-column a {
+    transition: color 0.2s ease;
+}
+
+
+.footer-column a:hover {
+    color: white;
+}
+
+
+.footer-bottom {
+    padding-top: 26px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    border-top:
+        1px solid
+        rgba(255, 255, 255, 0.10);
+
+    color: #64748b;
+}
+
