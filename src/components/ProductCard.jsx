@@ -51,9 +51,14 @@ function ProductCard(props) {
                     <button
                         type="button"
                         className="product-button"
+                        onClick={
+                            props.onAddToCart
+                        }
+
                     >
                         Agregar al carrito
                     </button>
+
 
                 </div>
 

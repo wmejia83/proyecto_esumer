@@ -1,6 +1,6 @@
 import ProductCard from "./ProductCard";
 
-function ProductGrid(){
+function ProductGrid(props){
 
     return(
         <section
@@ -32,34 +32,27 @@ function ProductGrid(){
             </div>
             
             <div className="products-grid">
+                {
+                    props.products.map(
+                        function (product) {
 
-                <ProductCard
-                    image="/products/headphones.jpg"
-                    category="Audio"
-                    name="Audífonos Pro"
-                    description="Sonido envolvente, diseño cómodo y una experiencia premium para trabajar o disfrutar tu música."
-                    price="129.900"
+                            return(
 
-                />
+                                <ProductCard
+                                    key ={product.id}
+                                    image={product.image}
+                                    category={product.category}
+                                    name={product.name}
+                                    description={product.description}
+                                    price={product.price}
+                                    rating={product.rating}
+                                    onAddToCart={product.onAddToCart}
+                                />
+                            );
 
-
-                <ProductCard
-                    image="/products/keyboard.jpg"
-                    category="Accesorios"
-                    name="Teclado Mecánico"
-                    description="Precisión y respuesta inmediata para estudiar, programar y trabajar durante largas jornadas."
-                    price="189.900"
-                />
-
-
-                <ProductCard
-                    image="/products/mouse.jpg"
-                    category="Accesorios"
-                    name="Mouse Inalámbrico"
-                    description="Diseño ergonómico, ligero y preciso para acompañarte cómodamente durante todo el día."
-                    price="79.900"
-                />
-
+                        }
+                    )
+                }
             </div>
 
         </section>

@@ -2,15 +2,47 @@
 HEADER
 ======================================== */
 .header {
-    width: min(1240px, calc(100% - 48px));
+    width: 100%;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    z-index: 1000;
+
+    background-color:
+        rgba(255, 255, 255, 0.92);
+
+    backdrop-filter: blur(16px);
+
+    border-bottom:
+        1px solid #e2e8f0;
+
+    box-shadow:
+        0 8px 30px
+        rgba(15, 23, 42, 0.05);
+}
+
+
+.header-inner {
+    width: min(
+        1240px,
+        calc(100% - 48px)
+    );
+
     margin: 0 auto;
-    padding: 24px 0;
+
+    padding: 18px 0;
 
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 32px;
 
+    gap: 32px;
+}
+
+main {
+    padding-top: 90px;
 }
 
 .brand {
@@ -704,3 +736,76 @@ PRODUCT CARD
     color: #64748b;
 }
 
+
+/* ========================================
+   SEARCH
+======================================== */
+
+.search-section {
+    width: min(
+        1240px,
+        calc(100% - 48px)
+    );
+
+    margin:
+        0 auto
+        55px;
+}
+
+
+.search-content {
+    padding: 22px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 22px;
+
+    border:
+        1px solid #e2e8f0;
+
+    border-radius: 22px;
+
+    background-color: white;
+
+    box-shadow:
+        0 10px 35px
+        rgba(15, 23, 42, 0.05);
+}
+
+
+.search-content label {
+    flex-shrink: 0;
+
+    font-size: 13px;
+    font-weight: 800;
+
+    color: #0f172a;
+}
+
+
+.search-content input {
+    width: 100%;
+
+    border:
+        1px solid #e2e8f0;
+
+    outline: none;
+
+    padding:
+        14px
+        18px;
+
+    border-radius: 14px;
+
+    background-color:
+        #f8fafc;
+
+    color: #0f172a;
+}
+
+
+.search-content input:focus {
+    border-color:
+        #6366f1;
+}
