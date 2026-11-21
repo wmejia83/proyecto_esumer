@@ -1,4 +1,26 @@
 function ProductCard(props) {
+
+    const product =
+        props.product;
+
+
+    const formattedPrice =
+        new Intl.NumberFormat(
+            "es-CO",
+            {
+                style: "currency",
+                currency: "COP",
+                maximumFractionDigits: 0
+            }
+        ).format(
+            Number(product.price)
+        );
+
+
+    const hasStock =
+        product.stock > 0;
+
+
     return (
         <article className="product-card">
 
@@ -6,13 +28,35 @@ function ProductCard(props) {
 
                 <img
                     className="product-image"
-                    src={props.image}
-                    alt={props.name}
+                    src={
+                        product.image_url
+                        || "/products/default.jpg"
+                    }
+                    alt={product.name}
                 />
 
-                <span className="product-badge">
-                    {props.category}
-                </span>
+
+                <div className="product-image-top">
+
+                    <span className="product-badge">
+                        {product.category}
+                    </span>
+
+                    <span
+                        className={
+                            hasStock
+                                ? "stock-badge"
+                                : "stock-badge out"
+                        }
+                    >
+                        {
+                            hasStock
+                                ? `${product.stock} disponibles`
+                                : "Agotado"
+                        }
+                    </span>
+
+                </div>
 
             </div>
 
@@ -21,44 +65,62 @@ function ProductCard(props) {
 
                 <div className="product-meta">
 
-                    <span className="product-category">
-                        {props.category}
+                    <span>
+                        {product.category}
                     </span>
 
                     <span className="product-rating">
-                        ★ {props.rating}
+                        ★ {product.rating}
                     </span>
 
                 </div>
 
 
                 <h3>
-                    {props.name}
+                    {product.name}
                 </h3>
 
 
                 <p>
-                    {props.description}
+                    {product.description}
                 </p>
 
 
                 <div className="product-footer">
 
-                    <strong>
-                        ${props.price}
-                    </strong>
+                    <div className="product-price">
+
+                        <span>
+                            Precio
+                        </span>
+
+                        <strong>
+                            {formattedPrice}
+                        </strong>
+
+                    </div>
+
 
                     <button
                         type="button"
                         className="product-button"
+                        disabled={!hasStock}
                         onClick={
-                            props.onAddToCart
+                            function() {
+
+                                props.onAddToCart(
+                                    product
+                                );
+
+                            }
                         }
-
                     >
-                        Agregar al carrito
+                        {
+                            hasStock
+                                ? "Agregar"
+                                : "Sin stock"
+                        }
                     </button>
-
 
                 </div>
 
@@ -66,6 +128,7 @@ function ProductCard(props) {
 
         </article>
     );
+
 }
 
 export default ProductCard;

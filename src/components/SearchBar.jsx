@@ -1,30 +1,52 @@
-function SearchBar(props){
+function SearchBar(props) {
+
     return (
-        <section className="search-section">
+        <div className="catalog-toolbar">
 
-            <div className="search-content">
+            <div className="search-field">
 
-                <label htmlFor="search">Buscar Productos</label>
+                <span className="search-icon">
+                    ⌕
+                </span>
 
                 <input
                     id="search"
-                    type="text"
-                    placeholder="Ej. mouse, teclado..."
+                    type="search"
+                    placeholder="Buscar mouse, audífonos, teclado..."
                     value={props.search}
                     onChange={
-                        function(event){
+                        function(event) {
+
                             props.onSearchChange(
                                 event.target.value
                             );
+
                         }
                     }
-                >
-                </input>
-                
+                />
+
             </div>
 
-        </section>
+
+            <div className="results-counter">
+
+                <strong>
+                    {props.total}
+                </strong>
+
+                <span>
+                    {
+                        props.total === 1
+                            ? "producto"
+                            : "productos"
+                    }
+                </span>
+
+            </div>
+
+        </div>
     );
+
 }
 
 export default SearchBar;

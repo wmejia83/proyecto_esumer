@@ -1,84 +1,186 @@
-import { useState } from "react";
+import {
+    useState
+} from "react";
 
-import initialProducts from "./data/products.js"
 
-import Header from "./components/Header.jsx";
-import Hero from "./components/Hero.jsx";
-import SearchBar from "./components/SearchBar.jsx";
+import initialProducts
+    from "./data/products.js";
 
-import ProductGrid from "./components/ProductGrid.jsx";
+import initialCategories
+    from "./data/categories.js";
 
-import Footer from "./components/Footer.jsx";
+
+import Header
+    from "./components/Header.jsx";
+
+import Hero
+    from "./components/Hero.jsx";
+
+import CategoryFilter
+    from "./components/CategoryFilter.jsx";
+
+import SearchBar
+    from "./components/SearchBar.jsx";
+
+import ProductGrid
+    from "./components/ProductGrid.jsx";
+
+import Footer
+    from "./components/Footer.jsx";
+
 
 import "./App.css";
 
 
 function App() {
 
-    const [cartCount,setCartCount] = 
-        useState(0);
-
-    // const [products, setProducts] =
-    //     useState(initialProducts)
     const [products] =
-        useState(initialProducts)
+        useState(
+            initialProducts
+        );
+
+
+    const [categories] =
+        useState(
+            initialCategories
+        );
+
+
+    const [cartCount, setCartCount] =
+        useState(0);
 
 
     const [search, setSearch] =
-        useState("")
+        useState("");
+
+
+    const [
+        selectedCategory,
+        setSelectedCategory
+    ] =
+        useState(null);
 
 
     const filteredProducts =
         products.filter(
-            function(product){
-                return product.name
-                    .toLowerCase()
-                    .includes(
-                        search.toLowerCase()
-                    );
+            function(product) {
+
+                if (!product.active) {
+
+                    return false;
+
+                }
+
+
+                const searchValue =
+                    search
+                        .trim()
+                        .toLowerCase();
+
+
+                const matchesSearch =
+                    searchValue === ""
+                    ||
+                    product.name
+                        .toLowerCase()
+                        .includes(
+                            searchValue
+                        )
+                    ||
+                    product.description
+                        .toLowerCase()
+                        .includes(
+                            searchValue
+                        );
+
+
+                const matchesCategory =
+                    selectedCategory === null
+                    ||
+                    product.category_id
+                    === selectedCategory;
+
+
+                return (
+                    matchesSearch
+                    && matchesCategory
+                );
+
             }
-        )
-        
+        );
+
 
     function handleAddToCart() {
 
         setCartCount(
-            cartCount + 1
+            function(currentCount) {
+
+                return (
+                    currentCount + 1
+                );
+
+            }
         );
 
     }
 
+
     return (
         <>
+
             <Header
                 cartCount={cartCount}
             />
 
+
             <main>
-            <Hero />
 
-            <SearchBar
-                search= {search}
+                <Hero />
 
-                onSearchChange={
-                    setSearch
-                }
-            />
 
-            <ProductGrid 
+                <CategoryFilter
+                    categories={categories}
+                    selectedCategory={
+                        selectedCategory
+                    }
+                    onCategoryChange={
+                        setSelectedCategory
+                    }
+                />
 
-                products = {filteredProducts}
 
-                onAddToCart={
-                    handleAddToCart
-                }
+                <section className="catalog-shell">
 
-            />
-            
+                    <SearchBar
+                        search={search}
+                        onSearchChange={
+                            setSearch
+                        }
+                        total={
+                            filteredProducts.length
+                        }
+                    />
+
+
+                    <ProductGrid
+                        products={
+                            filteredProducts
+                        }
+                        onAddToCart={
+                            handleAddToCart
+                        }
+                    />
+
+                </section>
+
             </main>
+
+
             <Footer />
+
         </>
     );
+
 }
 
-export default App
+export default App;

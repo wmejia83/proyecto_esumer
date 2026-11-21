@@ -1,17 +1,19 @@
-import ProductCard from "./ProductCard";
+import ProductCard
+    from "./ProductCard";
 
-function ProductGrid(props){
 
-    return(
+function ProductGrid(props) {
+
+    return (
         <section
-        id="products"
-        className="products-section"
+            id="products"
+            className="products-section"
         >
 
             <div className="section-heading">
 
                 <span className="section-eyebrow">
-                    COLECCIÓN DESTACADA
+                    CATÁLOGO NEXOMARKET
                 </span>
 
 
@@ -22,42 +24,64 @@ function ProductGrid(props){
                     </h2>
 
                     <p>
-                        Productos funcionales,
-                        modernos y pensados para
-                        mejorar tu espacio digital.
+                        Productos modernos, funcionales
+                        y pensados para mejorar
+                        tu espacio digital.
                     </p>
 
                 </div>
 
             </div>
-            
-            <div className="products-grid">
-                {
-                    props.products.map(
-                        function (product) {
 
-                            return(
 
-                                <ProductCard
-                                    key ={product.id}
-                                    image={product.image}
-                                    category={product.category}
-                                    name={product.name}
-                                    description={product.description}
-                                    price={product.price}
-                                    rating={product.rating}
-                                    onAddToCart={product.onAddToCart}
-                                />
-                            );
+            {
+                props.products.length > 0
+                    ? (
+                        <div className="products-grid">
 
-                        }
+                            {
+                                props.products.map(
+                                    function(product) {
+
+                                        return (
+                                            <ProductCard
+                                                key={product.id}
+                                                product={product}
+                                                onAddToCart={
+                                                    props.onAddToCart
+                                                }
+                                            />
+                                        );
+
+                                    }
+                                )
+                            }
+
+                        </div>
                     )
-                }
-            </div>
+                    : (
+                        <div className="empty-state">
+
+                            <span>
+                                ⌕
+                            </span>
+
+                            <h3>
+                                No encontramos productos.
+                            </h3>
+
+                            <p>
+                                Intenta con otra búsqueda
+                                o selecciona otra categoría.
+                            </p>
+
+                        </div>
+                    )
+            }
 
         </section>
-    )
+    );
 
 }
 
-export default ProductGrid
+export default ProductGrid;
