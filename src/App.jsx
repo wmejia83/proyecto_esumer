@@ -10,14 +10,17 @@ import initialCategories
     from "./data/categories.js";
 
 
-import Header
-    from "./components/Header.jsx";
+import PremiumHeader
+    from "./components/PremiumHeader.jsx";
 
-import Hero
-    from "./components/Hero.jsx";
+import PremiumHero
+    from "./components/PremiumHero.jsx";
 
-import CategoryFilter
-    from "./components/CategoryFilter.jsx";
+import CategoryShowcase
+    from "./components/CategoryShowcase.jsx";
+
+import EditorialBanner
+    from "./components/EditorialBanner.jsx";
 
 import SearchBar
     from "./components/SearchBar.jsx";
@@ -25,29 +28,43 @@ import SearchBar
 import ProductGrid
     from "./components/ProductGrid.jsx";
 
-import Footer
-    from "./components/Footer.jsx";
+import PremiumClosing
+    from "./components/PremiumClosing.jsx";
+
+import CartDrawer
+    from "./components/CartDrawer.jsx";
+
+import CheckoutModal
+    from "./components/CheckoutModal.jsx";
+
+import PremiumFooter
+    from "./components/PremiumFooter.jsx";
 
 
 import "./App.css";
+import "./Premium.css";
 
 
 function App() {
 
     const [products] =
-        useState(
-            initialProducts
-        );
+        useState(initialProducts);
 
 
     const [categories] =
-        useState(
-            initialCategories
-        );
+        useState(initialCategories);
 
 
-    const [cartCount, setCartCount] =
-        useState(0);
+    const [cartItems, setCartItems] =
+        useState([]);
+
+
+    const [isCartOpen, setIsCartOpen] =
+        useState(false);
+
+
+    const [isCheckoutOpen, setIsCheckoutOpen] =
+        useState(false);
 
 
     const [search, setSearch] =
@@ -66,9 +83,7 @@ function App() {
             function(product) {
 
                 if (!product.active) {
-
                     return false;
-
                 }
 
 
@@ -78,27 +93,28 @@ function App() {
                         .toLowerCase();
 
 
+                const description =
+                    product.description
+                    || "";
+
+
                 const matchesSearch =
                     searchValue === ""
                     ||
                     product.name
                         .toLowerCase()
-                        .includes(
-                            searchValue
-                        )
+                        .includes(searchValue)
                     ||
-                    product.description
+                    description
                         .toLowerCase()
-                        .includes(
-                            searchValue
-                        );
+                        .includes(searchValue);
 
 
                 const matchesCategory =
                     selectedCategory === null
                     ||
-                    product.category_id
-                    === selectedCategory;
+                    Number(product.category_id)
+                    === Number(selectedCategory);
 
 
                 return (
@@ -110,13 +126,88 @@ function App() {
         );
 
 
-    function handleAddToCart() {
+    function handleAddToCart(product) {
 
-        setCartCount(
-            function(currentCount) {
+        setCartItems(
+            function(currentItems) {
 
-                return (
-                    currentCount + 1
+                const existingItem =
+                    currentItems.find(
+                        function(item) {
+                            return item.id === product.id;
+                        }
+                    );
+
+
+                if (existingItem) {
+
+                    return currentItems.map(
+                        function(item) {
+
+                            if (item.id === product.id) {
+
+                                const nextQuantity =
+                                    Math.min(
+                                        item.quantity + 1,
+                                        product.stock
+                                    );
+
+
+                                return {
+                                    ...item,
+                                    quantity: nextQuantity
+                                };
+
+                            }
+
+
+                            return item;
+
+                        }
+                    );
+
+                }
+
+
+                return [
+                    ...currentItems,
+                    {
+                        ...product,
+                        quantity: 1
+                    }
+                ];
+
+            }
+        );
+
+
+        setIsCartOpen(true);
+
+    }
+
+
+    function handleIncreaseCartItem(productId) {
+
+        setCartItems(
+            function(currentItems) {
+
+                return currentItems.map(
+                    function(item) {
+
+                        if (item.id !== productId) {
+                            return item;
+                        }
+
+
+                        return {
+                            ...item,
+                            quantity: Math.min(
+                                item.quantity + 1,
+                                item.stock
+                            )
+                        };
+
+                    }
                 );
 
             }
@@ -125,31 +216,192 @@ function App() {
     }
 
 
+    function handleDecreaseCartItem(productId) {
+
+        setCartItems(
+            function(currentItems) {
+
+                return currentItems
+                    .map(
+                        function(item) {
+
+                            if (item.id !== productId) {
+                                return item;
+                            }
+
+
+                            return {
+                                ...item,
+                                quantity:
+                                    item.quantity - 1
+                            };
+
+                        }
+                    )
+                    .filter(
+                        function(item) {
+                            return item.quantity > 0;
+                        }
+                    );
+
+            }
+        );
+
+    }
+
+
+    function handleRemoveCartItem(productId) {
+
+        setCartItems(
+            function(currentItems) {
+
+                return currentItems.filter(
+                    function(item) {
+                        return item.id !== productId;
+                    }
+                );
+
+            }
+        );
+
+    }
+
+
+    const cartCount =
+        cartItems.reduce(
+            function(total, item) {
+                return total + item.quantity;
+            },
+            0
+        );
+
+
+    const cartSubtotal =
+        cartItems.reduce(
+            function(total, item) {
+
+                return (
+                    total
+                    + Number(item.price)
+                    * item.quantity
+                );
+
+            },
+            0
+        );
+
+
+    function handleCheckout() {
+
+        if (cartItems.length === 0) {
+            return;
+        }
+
+
+        setIsCartOpen(false);
+
+        setIsCheckoutOpen(true);
+
+    }
+
+
+    function handleOrderConfirmed() {
+
+        setCartItems([]);
+
+    }
+
+
+    function handleCategoryChange(categoryId) {
+
+        setSelectedCategory(
+            categoryId
+        );
+
+
+        setTimeout(
+            function() {
+
+                const catalog =
+                    document.getElementById(
+                        "products"
+                    );
+
+
+                if (catalog) {
+
+                    catalog.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
+                    });
+
+                }
+
+            },
+            100
+        );
+
+    }
+
+
     return (
         <>
 
-            <Header
+            <PremiumHeader
                 cartCount={cartCount}
+                onCartClick={
+                    function() {
+                        setIsCartOpen(true);
+                    }
+                }
             />
 
 
             <main>
 
-                <Hero />
+                <PremiumHero />
 
 
-                <CategoryFilter
+                <CategoryShowcase
                     categories={categories}
                     selectedCategory={
                         selectedCategory
                     }
                     onCategoryChange={
-                        setSelectedCategory
+                        handleCategoryChange
                     }
                 />
 
 
-                <section className="catalog-shell">
+                <section
+                    className="premium-catalog"
+                    id="products"
+                >
+
+                    <div className="premium-section-header catalog-heading">
+
+                        <div>
+
+                            <span className="section-eyebrow">
+                                CATÁLOGO NEXOMARKET
+                            </span>
+
+                            <h2>
+                                Productos para
+                                tu día digital.
+                            </h2>
+
+                        </div>
+
+
+                        <p>
+                            Busca, filtra y descubre productos
+                            seleccionados para trabajo,
+                            estudio y entretenimiento.
+                        </p>
+
+                    </div>
+
 
                     <SearchBar
                         search={search}
@@ -173,14 +425,63 @@ function App() {
 
                 </section>
 
+
+                <EditorialBanner />
+
+                <PremiumClosing />
+
             </main>
 
 
-            <Footer />
+            <CartDrawer
+                isOpen={isCartOpen}
+                items={cartItems}
+                totalItems={cartCount}
+                subtotal={cartSubtotal}
+                onClose={
+                    function() {
+                        setIsCartOpen(false);
+                    }
+                }
+                onIncrease={
+                    handleIncreaseCartItem
+                }
+                onDecrease={
+                    handleDecreaseCartItem
+                }
+                onRemove={
+                    handleRemoveCartItem
+                }
+                onCheckout={
+                    handleCheckout
+                }
+            />
+
+
+            {
+                isCheckoutOpen && (
+                    <CheckoutModal
+                        items={cartItems}
+                        subtotal={cartSubtotal}
+                        onConfirm={
+                            handleOrderConfirmed
+                        }
+                        onClose={
+                            function() {
+                                setIsCheckoutOpen(false);
+                            }
+                        }
+                    />
+                )
+            }
+
+
+            <PremiumFooter />
 
         </>
     );
 
 }
+
 
 export default App;
