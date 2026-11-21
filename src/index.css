@@ -1,10 +1,29 @@
+:root {
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    color: #0f172a;
+    background: #f7f8fc;
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+}
+
+
 * {
     box-sizing: border-box;
 }
 
+
 html {
     scroll-behavior: smooth;
 }
+
 
 body {
     margin: 0;
@@ -12,35 +31,29 @@ body {
     min-width: 320px;
     min-height: 100vh;
 
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
-    background-color: #f8fafc;
+    background:
+        radial-gradient(
+            circle at 90% 5%,
+            rgba(99, 102, 241, 0.08),
+            transparent 26%
+        ),
+        #f7f8fc;
 
     color: #0f172a;
-
-    -webkit-font-smoothing: antialiased;
-
-    text-rendering: optimizeLegibility;
 }
+
 
 #root {
     width: 100%;
     min-height: 100vh;
 }
 
+
 a {
     color: inherit;
     text-decoration: none;
 }
 
-img {
-    display: block;
-    max-width: 100%;
-    height: auto;
-}
 
 button,
 input,
@@ -49,16 +62,22 @@ textarea {
     font: inherit;
 }
 
+
 button {
     cursor: pointer;
 }
+
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
 
 h1,
 h2,
 h3,
 h4,
-h5,
-h6,
 p {
     margin-top: 0;
 }
